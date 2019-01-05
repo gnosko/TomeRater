@@ -158,11 +158,14 @@ class TomeRater(object):
             print(user)
     
     def most_read_book(self):
+        # Determine highest read count
         max_reads = max(self.books.values())
-        print(max_reads)
-        print(book.title for book, reads in self.books.items() if reads == max_reads)
-        #print(most_read)
-        #for book in self.books:
+        # Create list of books in self.books that match the highest read count
+        most_read_book = [book for book, reads in self.books.items() if reads == max_reads]
+        # Print list
+        print(most_read_book)
+        
+        
     
     def highest_rated_book(self):
         #ADD CODE HERE

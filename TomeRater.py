@@ -35,6 +35,9 @@ class User(object):
                 ratings_total += self.books[key]
                 number_of_ratings += 1
         return ratings_total / number_of_ratings
+    
+    def __hash__(self):
+        return hash((self.name, self.email))
 
 class Book(object):
     def __init__(self, title, isbn):
@@ -66,6 +69,12 @@ class Book(object):
             return True
         else:
             return False
+    
+    def get_average_rating(self):
+        ratings_total = 0
+        for rating in self.ratings:
+            ratings_total += rating
+        return ratings_total / len(self.ratings)
     
     def __hash__(self):
         return hash((self.title, self.isbn))
@@ -160,20 +169,40 @@ class TomeRater(object):
     def most_read_book(self):
         # Determine highest read count
         max_reads = max(self.books.values())
-        # Create list of books in self.books that match the highest read count
+        # Create list of books in self.books that hold the highest read count (could be multiple books)
         most_read_book = [book for book, reads in self.books.items() if reads == max_reads]
         # Print list
-        print(most_read_book)
-        
-        
+        print("{} is the most read at {} times.".format(most_read_book, max_reads))
     
     def highest_rated_book(self):
-        #ADD CODE HERE
-        pass
+        # Create dict of Books and rating averages
+        book_average_ratings = {}
+        for book in self.books: 
+            book_average_ratings[book] = book.get_average_rating()
+        
+        # Determine highest rating value
+        highest_rating = max(book_average_ratings.values())
+        
+        # Create list of books that hold the highest rating
+        highest_rated_book = [book for book, rating in book_average_ratings.items() if rating == highest_rating]
+        
+        # Print list
+        print("{} holds the highest rating at {}".format(highest_rated_book, highest_rating))
     
     def most_positive_user(self):
-        #ADD CODE HERE
-        pass
+        # Create dict of Users and rating averages
+        user_average_ratings = {}
+        for user in self.users.values(): 
+            user_average_ratings[user] = user.get_average_rating()
+        
+        # Determine highest average rating value
+        highest_rating = max(user_average_ratings.values())
+        
+        # Create list of users that hold the highest average rating
+        most_positive_user = [user for user, rating in user_average_ratings.items() if rating == highest_rating]
+        
+        # Print list
+        print("{} is the most positive user leaving a highest average rating of {}".format(most_positive_user, highest_rating))
 
 
 

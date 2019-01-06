@@ -138,6 +138,11 @@ class TomeRater(object):
             self.books[book] += 1
         
     def add_user(self, name, email, user_books=None):
+        # Error: check for valid email address
+        if "@" not in email:
+            print("User account was NOT created because an invalid email address was supplied!")
+            return False
+            
         # Error: check if user has already been added
         if email in self.users:
             print("User {} already exists!".format(email))
@@ -203,7 +208,6 @@ class TomeRater(object):
         
         # Print list
         print("{} is the most positive user leaving a highest average rating of {}".format(most_positive_user, highest_rating))
-
 
 
 

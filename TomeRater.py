@@ -11,9 +11,9 @@ class User(object):
     def get_email(self):
         return self.email
 
-    def change_email(self, address):
-        self.email = address
-        print("The email address for {user} has been updated to: {address}".format(address))
+    def change_email(self, email):
+        self.email = email
+        print("The email address for {user} has been updated to: {email}".format(email)
 
     def __repr__(self):
         return "User: " + self.name + " - " + self.email + " (books read: " + str(len(self.books)) + ")"
@@ -108,12 +108,24 @@ class TomeRater(object):
         self.books = {}
 
     def create_book(self, title, isbn):
+        for book in self.books:
+            if isbn == book.get_isbn():
+                print("A book with the supplied ISBN already exists!")
+                return False
         return Book(title, isbn)
 
     def create_novel(self, title, author, isbn):
+        for book in self.books:
+            if isbn == book.get_isbn():
+                print("A book with the supplied ISBN already exists!")
+                return False
         return Fiction(title, author, isbn)
         
     def create_non_fiction(self, title, subject, level, isbn):
+        for book in self.books:
+            if isbn == book.get_isbn():
+                print("A book with the supplied ISBN already exists!")
+                return False
         return Non_Fiction(title, subject, level, isbn)
         
     def add_book_to_user(self, book, email, rating=None):

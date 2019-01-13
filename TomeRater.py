@@ -13,7 +13,7 @@ class User(object):
 
     def change_email(self, email):
         self.email = email
-        print("The email address for {user} has been updated to: {email}".format(email)
+        print("The email address for {user} has been updated to: {email}".format(email))
 
     def __repr__(self):
         return "User: " + self.name + " - " + self.email + " (books read: " + str(len(self.books)) + ")"
@@ -168,12 +168,6 @@ class TomeRater(object):
         if user_books is not None:
             for book in user_books:
                 self.add_book_to_user(book, email)
-
-    def __repr__(self):
-        pass
-    
-    def __eq__(self, other_tomerater):
-        pass
     
     def print_catalog(self):
         for book in self.books:
